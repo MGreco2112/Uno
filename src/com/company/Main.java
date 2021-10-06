@@ -48,6 +48,7 @@ public class Main {
 	            shuffles cards collection
 
 	    Player:
+	        String name
 	        Hand hand
 	        int score
 
@@ -56,13 +57,21 @@ public class Main {
 	        draw(int number of cards)
 
 	    Table:
+	        Deck deck
 	        List<Player> players
+	        List<Card> pile
 
-	        round() loops turn
+            constructor asks for number of players and adds new players into players list
 
-	        turn() runs logic for each turn
+	        round() deals five cards to each player, draws from deck and places card in pile, loops turn, determines
+	        winner
+
+	        turn() runs logic for each turn, allows player to draw card, play card if able, call Uno
 
 	        determineRotation() iterates through players in either direction depending on reverse cards in play
+
+	        score() First player to call Uno causes all other players to add their hand totals to their score. Next
+	        game prompt is asked
 
         */
     }
