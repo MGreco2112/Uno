@@ -1,5 +1,8 @@
 package com.company;
 
+import card.Deck;
+import utilities.Utilities;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,6 +21,7 @@ public class Main {
 
 	    Game Package:
 	    Player
+	    Hand
 	    Table
 
 
@@ -47,6 +51,16 @@ public class Main {
 	        shuffle()
 	            shuffles cards collection
 
+	    Hand:
+	        List<Card> cards
+	        boolean calledUno
+
+	        addCards(int numberOfCards) adds card to cards
+
+	        playCard() removes card from hand and returns it
+
+	        callUno() if hands.size() == 1, state to players player has called Uno
+
 	    Player:
 	        String name
 	        Hand hand
@@ -60,19 +74,24 @@ public class Main {
 	        Deck deck
 	        List<Player> players
 	        List<Card> pile
+	        boolean isReverse
 
             constructor asks for number of players and adds new players into players list
 
-	        round() deals five cards to each player, draws from deck and places card in pile, loops turn, determines
+	        round() deals seven cards to each player, draws from deck and places card in pile, loops turn, determines
 	        winner
 
 	        turn() runs logic for each turn, allows player to draw card, play card if able, call Uno
 
 	        determineRotation() iterates through players in either direction depending on reverse cards in play
 
-	        score() First player to call Uno causes all other players to add their hand totals to their score. Next
-	        game prompt is asked
+	        score() First player to empty their hand causes all other players to add their hand totals to their score.
+	        Next game prompt is asked
 
         */
+
+        Deck testDeck = new Deck();
+
+        testDeck.displayDeck();
     }
 }
