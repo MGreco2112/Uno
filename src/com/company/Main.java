@@ -2,6 +2,7 @@ package com.company;
 
 import card.Deck;
 import game.Hand;
+import game.Table;
 import utilities.Utilities;
 
 public class Main {
@@ -91,25 +92,8 @@ public class Main {
 
         */
 
-        Deck testDeck = new Deck();
-        Hand testHand = new Hand();
+        Table table = new Table();
 
-        testHand.addCards(7, testDeck);
-
-        testHand.displayHand();
-
-        int choice = Utilities.getInt("It's your turn, will you Play a card or Draw a card?\n1) Play\n2) Draw",
-                1, 2);
-
-        switch (choice) {
-            case 1 -> {
-                testHand.removeCard(testHand.getCards().get(testHand.playCard()));
-            }
-            case 2 -> {
-                testHand.addCards(testDeck);
-            }
-        }
-
-        testHand.displayHand();
+        table.playerAction();
     }
 }
