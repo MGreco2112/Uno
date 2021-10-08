@@ -43,7 +43,7 @@ public class Card {
         }
     }
 
-    public void displayCard() {
+    public StringBuilder displayCard() {
         StringBuilder card = new StringBuilder();
 
         if (VALUE < 13) {
@@ -62,7 +62,7 @@ public class Card {
             }
         }
 
-        System.out.println(card);
+        return card;
     }
 
 

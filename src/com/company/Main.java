@@ -1,6 +1,7 @@
 package com.company;
 
 import card.Deck;
+import game.Hand;
 import utilities.Utilities;
 
 public class Main {
@@ -59,7 +60,6 @@ public class Main {
 
 	        playCard() removes card from hand and returns it
 
-	        callUno() if hands.size() == 1, state to players player has called Uno
 
 	    Player:
 	        String name
@@ -70,6 +70,7 @@ public class Main {
 
 	        draw(int number of cards)
 
+	        callUno() if hands.size() == 1, state to players player has called Uno
 	    Table:
 	        Deck deck
 	        List<Player> players
@@ -91,7 +92,24 @@ public class Main {
         */
 
         Deck testDeck = new Deck();
+        Hand testHand = new Hand();
 
-        testDeck.displayDeck();
+        testHand.addCards(7, testDeck);
+
+        testHand.displayHand();
+
+        int choice = Utilities.getInt("It's your turn, will you Play a card or Draw a card?\n1) Play\n2) Draw",
+                1, 2);
+
+        switch (choice) {
+            case 1 -> {
+                testHand.removeCard(testHand.getCards().get(testHand.playCard()));
+            }
+            case 2 -> {
+                testHand.addCards(testDeck);
+            }
+        }
+
+        testHand.displayHand();
     }
 }
