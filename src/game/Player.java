@@ -32,11 +32,24 @@ public class Player {
         return HAND.cards.get(HAND.playCard());
     }
 
-    public void draw(int numberOfCards, Deck deck) {
+    public void addCards(int numberOfCards, Deck deck) {
+        if (calledUno) {
+            System.out.println(NAME + " no longer has Uno");
+            calledUno = false;
+        }
+
         switch (numberOfCards) {
             case 1 -> HAND.addCards(deck);
             default -> HAND.addCards(numberOfCards, deck);
         }
+    }
+
+    public void displayHand() {
+        HAND.displayHand();
+    }
+
+    public void removeCard(Card card) {
+        HAND.removeCard(card);
     }
 
     public void callUno() {
