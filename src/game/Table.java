@@ -31,11 +31,50 @@ public class Table {
 
     private List<Player> players = new ArrayList<>();
     private List<Card> pile = new ArrayList<>();
+    private final Deck deck = new Deck();
     private boolean isReverse = false;
+    private int numberOfPlayers;
 
     //testing fields
-    private Deck deck = new Deck();
     private Player player = new Player("Player 1", new Hand());
+
+    public Table() {
+
+    }
+
+    private void setupGame() {
+        numberOfPlayers = Utilities.getInt("How many Players?", 1, 5);
+        openingDeal();
+        addPlayers();
+    }
+
+    private void round() {
+        setupGame();
+        //load pile with top card of shuffled deck
+
+    }
+
+    private void turn() {
+
+    }
+
+    private void openingDeal() {
+        int STARTING_HAND_COUNT = 7;
+
+        for (Player player : players) {
+            player.addCards(STARTING_HAND_COUNT, deck);
+        }
+    }
+
+    private void addPlayers() {
+        while (players.size() < numberOfPlayers) {
+            String name = Utilities.getString("Enter your Name", true);
+
+            players.add(new Player(name, new Hand()));
+
+            System.out.println(name + " has been added to the game.");
+        }
+    }
 
     //testing method
     public void playerAction() {

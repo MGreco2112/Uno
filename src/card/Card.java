@@ -20,8 +20,8 @@ public class Card {
     protected final int VALUE;
     protected boolean isSkip = false;
     protected boolean isReverse = false;
-    protected boolean isWild = false;
     protected boolean isDraw = false;
+    protected boolean isWild = false;
 
     public Card(String COLOR, int value) {
         this.COLOR = COLOR;
