@@ -7,6 +7,7 @@ import utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Table {
     /*
@@ -34,29 +35,44 @@ public class Table {
     private final Deck deck = new Deck();
     private boolean isReverse = false;
     private int numberOfPlayers;
-
-    //testing fields
-    private Player player = new Player("Player 1", new Hand());
+    private Card currentCard;
+    private String currentColor;
+    private int currentValue;
+    private boolean hasWinner = false;
 
     public Table() {
 
     }
 
+    public void round() {
+        setupGame();
+        openingPile();
+        while (!hasWinner) {
+            for (Player player : players) {
+                turn(player);
+                if (hasWinner) {
+                    break;
+                }
+            }
+        }
+
+
+    }
+
+    private void turn(Player activePlayer) {
+        playerAction(activePlayer);
+        checkWinner(activePlayer);
+
+    }
+
+
+
     private void setupGame() {
         numberOfPlayers = Utilities.getInt("How many Players?", 1, 5);
-        openingDeal();
         addPlayers();
+        openingDeal();
     }
 
-    private void round() {
-        setupGame();
-        //load pile with top card of shuffled deck
-
-    }
-
-    private void turn() {
-
-    }
 
     private void openingDeal() {
         int STARTING_HAND_COUNT = 7;
@@ -76,26 +92,54 @@ public class Table {
         }
     }
 
-    //testing method
-    public void playerAction() {
-        player.addCards(7, deck);
+    private void openingPile() {
+        pile.add(deck.draw());
+        updatePile();
+    }
 
-        player.displayHand();
+    private void updatePile() {
+        currentCard = pile.get(pile.size() - 1);
+        currentColor = currentCard.getCOLOR();
+        currentValue = currentCard.getVALUE();
+    }
 
-        int choice = Utilities.getInt("It's your turn, will you Play a card or Draw a card?\n1) Play\n2) Draw",
-                1, 2);
+    private void playCard(Player activePlayer) {
+        System.out.println(currentCard.displayCard());
+        Card card = activePlayer.playCard();
+        if (Objects.equals(card.getCOLOR(), currentColor) || card.getVALUE() == currentValue) {
+            pile.add(card);
+            activePlayer.removeCard(card);
+        } else {
+            System.out.println("Invalid selection, try again");
+            playerAction(activePlayer);
+        }
+    }
+
+    private void addCard(Player activePlayer) {
+        activePlayer.addCards(1, deck);
+    }
+
+    private void checkWinner(Player activePlayer){
+        if (activePlayer.getCalledUno() && activePlayer.isWinner()) {
+            hasWinner = true;
+        } else {
+            activePlayer.callUno();
+        }
+
+    }
+
+    public void playerAction(Player activePlayer) {
+        System.out.println("Current Card:" + currentCard.displayCard() + "\n" + activePlayer.getNAME() + "'s Hand:");
+        activePlayer.displayHand();
+        int choice = Utilities.getInt(activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", 1, 2);
 
         switch (choice) {
             case 1 -> {
-                player.removeCard(player.playCard());
-
+                playCard(activePlayer);
+                updatePile();
             }
-            case 2 -> {
-                player.addCards(1 ,deck);
-            }
+            case 2 -> addCard(activePlayer);
         }
-
-        player.displayHand();
 
     }
 

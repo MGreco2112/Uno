@@ -52,11 +52,23 @@ public class Player {
         HAND.removeCard(card);
     }
 
+    public String getNAME() {
+        return NAME;
+    }
+
     public void callUno() {
         if (HAND.getHandSize() == 1) {
             System.out.println(NAME + " calls Uno!");
             calledUno = true;
         }
+    }
+
+    public boolean getCalledUno() {
+        return calledUno;
+    }
+
+    public boolean isWinner() {
+        return HAND.isWinner();
     }
 
 }

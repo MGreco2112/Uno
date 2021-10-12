@@ -43,6 +43,14 @@ public class Card {
         }
     }
 
+    public String getCOLOR() {
+        return COLOR;
+    }
+
+    public int getVALUE() {
+        return VALUE;
+    }
+
     public StringBuilder displayCard() {
         StringBuilder card = new StringBuilder();
 

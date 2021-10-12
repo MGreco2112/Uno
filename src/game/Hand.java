@@ -66,6 +66,10 @@ public class Hand {
         }
     }
 
+    public boolean isWinner() {
+        return cards.size() == 0;
+    }
+
     public int getHandSize() {
         return cards.size();
     }
