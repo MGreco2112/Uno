@@ -32,7 +32,7 @@ public class Table {
 
     private List<Player> players = new ArrayList<>();
     private List<Card> pile = new ArrayList<>();
-    private final Deck deck = new Deck();
+    private Deck deck;
     private boolean isReverse = false;
     private int numberOfPlayers;
     private Card currentCard;
@@ -56,8 +56,7 @@ public class Table {
                 }
             }
         }
-
-
+        declareWinner();
     }
 
     private void turn(Player activePlayer) {
@@ -69,11 +68,20 @@ public class Table {
 
 
     private void setupGame() {
+        createDeck();
+        setNumberOfPlayers();
+        addPlayers();
+        openingDeal();
+    }
+
+    private void setNumberOfPlayers() {
         int MIN_PLAYERS = 1;
         int MAX_PLAYERS = 5;
         numberOfPlayers = Utilities.getInt("How many Players?\nEnter a number 1 - 5", MIN_PLAYERS, MAX_PLAYERS);
-        addPlayers();
-        openingDeal();
+    }
+
+    private void createDeck() {
+        deck = new Deck();
     }
 
 
@@ -157,6 +165,15 @@ public class Table {
             case 2 -> addCard(activePlayer);
         }
 
+    }
+
+    private void declareWinner() {
+        for (Player player : players) {
+            if (player.isWinner()) {
+                System.out.println(player.getNAME() + " is the winner!");
+                return;
+            }
+        }
     }
 
 }
