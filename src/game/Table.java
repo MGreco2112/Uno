@@ -62,7 +62,7 @@ public class Table {
     private void turn(Player activePlayer) {
         playerAction(activePlayer);
         checkWinner(activePlayer);
-
+        reshuffleDeck();
     }
 
 
@@ -106,7 +106,8 @@ public class Table {
     private void playCard(Player activePlayer) {
         System.out.println(currentCard.displayCard());
         Card card = activePlayer.playCard();
-        if (Objects.equals(card.getCOLOR(), currentColor) || card.getVALUE() == currentValue) {
+        if (Objects.equals(card.getCOLOR(), currentColor) || card.getVALUE() == currentValue || card.getVALUE() == Deck.WILD_VALUE
+                || card.getVALUE() == Deck.DRAW_WILD_VALUE) {
             pile.add(card);
             activePlayer.removeCard(card);
         } else {
@@ -126,6 +127,12 @@ public class Table {
             activePlayer.callUno();
         }
 
+    }
+
+    private void reshuffleDeck() {
+        if (deck.getCardsRemaining() == 0) {
+            deck.reshuffle(pile);
+        }
     }
 
     public void playerAction(Player activePlayer) {

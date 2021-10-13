@@ -18,6 +18,8 @@ public class Deck {
 	            shuffles cards collection
 
     */
+    public static final int WILD_VALUE = 13;
+    public static final int DRAW_WILD_VALUE = 14;
     private final List<Card> cards = new ArrayList<>();
     private final int[] values = new int[] {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 11, 12, 13,
             14};
@@ -29,8 +31,17 @@ public class Deck {
         shuffle();
     }
 
+    public int getCardsRemaining() {
+        return cards.size();
+    }
+
     public void shuffle() {
         Collections.shuffle(cards);
+    }
+
+    public void reshuffle(List<Card> pile) {
+        cards.addAll(pile);
+        pile.clear();
     }
 
     public Card draw() {
