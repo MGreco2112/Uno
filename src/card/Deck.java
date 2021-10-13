@@ -40,8 +40,10 @@ public class Deck {
     }
 
     public void reshuffle(List<Card> pile) {
-        cards.addAll(pile);
-        pile.clear();
+        for (int i = 0; i < pile.size() - 1; i++) {
+            cards.add(pile.get(i));
+            pile.remove(pile.get(i));
+        }
     }
 
     public Card draw() {

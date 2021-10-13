@@ -48,6 +48,7 @@ public class Table {
         setupGame();
         openingPile();
         while (!hasWinner) {
+            //TODO modify this loop to flow both ways
             for (Player player : players) {
                 turn(player);
                 if (hasWinner) {
@@ -60,9 +61,9 @@ public class Table {
     }
 
     private void turn(Player activePlayer) {
+        reshuffleDeck();
         playerAction(activePlayer);
         checkWinner(activePlayer);
-        reshuffleDeck();
     }
 
 
@@ -142,6 +143,7 @@ public class Table {
 
         switch (choice) {
             case 1 -> {
+                reshuffleDeck();
                 playCard(activePlayer);
                 updatePile();
             }
