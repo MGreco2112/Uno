@@ -69,7 +69,9 @@ public class Table {
 
 
     private void setupGame() {
-        numberOfPlayers = Utilities.getInt("How many Players?", 1, 5);
+        int MIN_PLAYERS = 1;
+        int MAX_PLAYERS = 5;
+        numberOfPlayers = Utilities.getInt("How many Players?\nEnter a number 1 - 5", MIN_PLAYERS, MAX_PLAYERS);
         addPlayers();
         openingDeal();
     }
@@ -118,7 +120,8 @@ public class Table {
     }
 
     private void addCard(Player activePlayer) {
-        activePlayer.addCards(1, deck);
+        int SINGLE_DRAW = 1;
+        activePlayer.addCards(SINGLE_DRAW, deck);
     }
 
     private void checkWinner(Player activePlayer){
@@ -131,15 +134,19 @@ public class Table {
     }
 
     private void reshuffleDeck() {
-        if (deck.getCardsRemaining() == 0) {
+        int EMPTY_DECK = 0;
+        if (deck.getCardsRemaining() == EMPTY_DECK) {
             deck.reshuffle(pile);
         }
     }
 
     public void playerAction(Player activePlayer) {
+        int MIN_OPTION = 1;
+        int MAX_OPTION = 2;
+
         System.out.println("Current Card:" + currentCard.displayCard() + "\n" + activePlayer.getNAME() + "'s Hand:");
         activePlayer.displayHand();
-        int choice = Utilities.getInt(activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", 1, 2);
+        int choice = Utilities.getInt(activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", MIN_OPTION, MAX_OPTION);
 
         switch (choice) {
             case 1 -> {
