@@ -38,6 +38,7 @@ public class Table {
     private Card currentCard;
     private String currentColor;
     private int currentValue;
+    private boolean hasSkipped = false;
     private boolean hasWinner = false;
 
     public Table() {
@@ -61,7 +62,11 @@ public class Table {
 
     private void turn(Player activePlayer) {
         reshuffleDeck();
-        playerAction(activePlayer);
+        if (!hasSkipped) {
+            playerAction(activePlayer);
+        } else {
+            hasSkipped = false;
+        }
         checkWinner(activePlayer);
     }
 
@@ -160,7 +165,11 @@ public class Table {
             case 1 -> {
                 reshuffleDeck();
                 playCard(activePlayer);
-                updatePile();
+                checkCardPowers(activePlayer);
+//                if (!Objects.equals(pile.get(pile.size() - 1).getCOLOR(), "Wild")) {
+                    updatePile();
+                    //insert ability check here
+//                }
             }
             case 2 -> addCard(activePlayer);
         }
@@ -173,6 +182,19 @@ public class Table {
                 System.out.println(player.getNAME() + " is the winner!");
                 return;
             }
+        }
+    }
+
+    private void checkCardPowers(Player activePlayer) {
+        Card checkedCard = pile.get(pile.size() - 1);
+        int currentPlayer = players.indexOf(activePlayer);
+
+        if (checkedCard.getIsDraw() && !checkedCard.getIsWild()) {
+            System.out.println(players.get(currentPlayer + 1).getNAME() + " draws 2 cards!");
+            hasSkipped = true;
+            players.get(currentPlayer + 1).addCards(2, deck);
+        } else if (checkedCard.getIsSkip()) {
+            hasSkipped = true;
         }
     }
 

@@ -73,5 +73,20 @@ public class Card {
         return card;
     }
 
+    public boolean getIsSkip() {
+        return isSkip;
+    }
+
+    public boolean getIsReverse() {
+        return isReverse;
+    }
+
+    public boolean getIsDraw() {
+        return isDraw;
+    }
+
+    public boolean getIsWild() {
+        return isWild;
+    }
 
 }
