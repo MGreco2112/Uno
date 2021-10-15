@@ -61,9 +61,13 @@ public class Hand {
     }
 
     public void displayHand() {
+        StringBuilder hand = new StringBuilder();
+
         for (Card card : cards) {
-            System.out.println(card.displayCard());
+            hand.append(card.displayCard() + " | ");
         }
+
+        System.out.println(hand);
     }
 
     public boolean isWinner() {

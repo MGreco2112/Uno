@@ -198,9 +198,16 @@ public class Table {
     private void drawPower(Player activePlayer) {
         int drawTwo = 2;
         int drawFour = 4;
-        int currentPlayer = players.indexOf(activePlayer);
         StringBuilder prompt = new StringBuilder();
-        prompt.append(players.get(currentPlayer + 1).getNAME() + " draws");
+        int nextPlayer;
+        if (players.get(players.indexOf(activePlayer) + 1) != null) {
+            nextPlayer = players.indexOf(activePlayer) + 1;
+        } else {
+            nextPlayer = 0;
+        }
+
+        prompt.append(" draws");
+
         int drawnCards;
 
         if (currentCard.getVALUE() == Card.DRAW_VALUE) {
@@ -214,7 +221,7 @@ public class Table {
 
         skipPower();
         System.out.println(prompt);
-        players.get(currentPlayer + 1).addCards(drawnCards, deck);
+        players.get(nextPlayer).addCards(drawnCards, deck);
 
 
     }

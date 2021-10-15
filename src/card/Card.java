@@ -23,7 +23,6 @@ public class Card {
     protected boolean isDraw = false;
     protected boolean isWild = false;
     public static final int DRAW_VALUE = 12;
-    public static final int WILD_4_VALUE = 14;
 
     public Card(String COLOR, int value) {
         this.COLOR = COLOR;
