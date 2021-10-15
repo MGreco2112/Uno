@@ -65,8 +65,7 @@ public class Table {
         if (!hasSkipped) {
             playerAction(activePlayer);
         } else {
-            System.out.println(activePlayer.getNAME() + " has been skipped!");
-            hasSkipped = false;
+            resetSkip(activePlayer);
         }
         checkWinner(activePlayer);
     }
@@ -134,6 +133,10 @@ public class Table {
     }
 
     private void addCard(Player activePlayer) {
+        if (deck.getCardsRemaining() <= 1) {
+            deck.reshuffle(pile);
+        }
+
         int SINGLE_DRAW = 1;
         activePlayer.addCards(SINGLE_DRAW, deck);
     }
@@ -150,6 +153,7 @@ public class Table {
     private void reshuffleDeck() {
         int EMPTY_DECK = 0;
         if (deck.getCardsRemaining() == EMPTY_DECK) {
+            System.out.println("Reshuffling");
             deck.reshuffle(pile);
         }
     }
@@ -204,6 +208,10 @@ public class Table {
     }
 
     private void drawPower(Player activePlayer) {
+        if (deck.getCardsRemaining() <= 2) {
+            deck.reshuffle(pile);
+        }
+
         int drawTwo = 2;
         int drawFour = 4;
         int rotation = (isReverse ? -1 : 1);
@@ -240,6 +248,11 @@ public class Table {
 
     private void skipPower() {
         hasSkipped = true;
+    }
+
+    private void resetSkip(Player activePlayer) {
+        System.out.println(activePlayer.getNAME() + " has been skipped!");
+        hasSkipped = false;
     }
 
     private void wildPower(Player activePlayer) {

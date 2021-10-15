@@ -40,8 +40,9 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    //TODO fix reshuffle method
     public void reshuffle(List<Card> pile) {
-        for (int i = 0; i < pile.size() - 1; i++) {
+        for (int i = 0; i < pile.size() - 2; i++) {
             cards.add(pile.get(i));
             pile.remove(pile.get(i));
         }
