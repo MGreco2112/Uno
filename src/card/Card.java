@@ -22,7 +22,6 @@ public class Card {
     protected boolean isReverse = false;
     protected boolean isDraw = false;
     protected boolean isWild = false;
-    public static final int DRAW_VALUE = 12;
 
     public Card(String COLOR, int value) {
         this.COLOR = COLOR;

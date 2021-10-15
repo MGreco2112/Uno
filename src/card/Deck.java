@@ -18,6 +18,7 @@ public class Deck {
 	            shuffles cards collection
 
     */
+    public static final int DRAW_VALUE = 12;
     public static final int WILD_VALUE = 13;
     public static final int DRAW_WILD_VALUE = 14;
     private final List<Card> cards = new ArrayList<>();

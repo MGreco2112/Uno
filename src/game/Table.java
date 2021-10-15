@@ -221,7 +221,7 @@ public class Table {
 
         int drawnCards;
 
-        if (currentCard.getVALUE() == Card.DRAW_VALUE) {
+        if (currentCard.getVALUE() == Deck.DRAW_VALUE) {
             prompt.append(" 2 cards");
             drawnCards = drawTwo;
         } else {
