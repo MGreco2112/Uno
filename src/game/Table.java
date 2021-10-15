@@ -65,6 +65,7 @@ public class Table {
         if (!hasSkipped) {
             playerAction(activePlayer);
         } else {
+            System.out.println(activePlayer.getNAME() + " has been skipped!");
             hasSkipped = false;
         }
         checkWinner(activePlayer);
