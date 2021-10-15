@@ -276,7 +276,7 @@ public class Table {
     }
 
     private void reversePower() {
-        //TODO implement Reverse
+        //isReverse = !isReverse;
     }
 
 }
