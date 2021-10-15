@@ -216,9 +216,9 @@ public class Table {
         StringBuilder prompt = new StringBuilder();
         int nextPlayer;
 
-        if (players.get(players.indexOf(activePlayer) + rotation) != null) {
+        if (players.indexOf(activePlayer) != players.size() - 1) {
             nextPlayer = players.indexOf(activePlayer) + rotation;
-        } else  if (!isReverse){
+        } else if (!isReverse){
             nextPlayer = 0;
         } else {
             nextPlayer = players.size() - 1;
