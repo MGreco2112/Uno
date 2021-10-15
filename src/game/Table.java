@@ -157,7 +157,14 @@ public class Table {
         int MIN_OPTION = 1;
         int MAX_OPTION = 2;
 
-        System.out.println("Current Card:" + currentCard.displayCard() + "\n" + activePlayer.getNAME() + "'s Hand:");
+        if (!currentCard.getIsWild()) {
+            System.out.println("Current Card: " + currentCard.displayCard());
+        } else {
+            System.out.println("Current Card: " + currentColor + " Wild");
+        }
+
+        System.out.println(activePlayer.getNAME() + "'s turn");
+
         activePlayer.displayHand();
         int choice = Utilities.getInt(activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", MIN_OPTION, MAX_OPTION);
 
@@ -210,7 +217,7 @@ public class Table {
             nextPlayer = players.size() - 1;
         }
 
-        prompt.append(" draws");
+        prompt.append(players.get(nextPlayer).getNAME() + " draws");
 
         int drawnCards;
 
@@ -239,7 +246,7 @@ public class Table {
         setColorPrompt.append(activePlayer.getNAME() + " sets the color to ");
         String colorSetter = "";
 
-        String prompt = "1) Red\n2) Blue\n)3 Yellow\n4) Green";
+        String prompt = "1) Red\n2) Blue\n3) Yellow\n4) Green";
 
         int colorChoice = Utilities.getInt("Choose a Color\n" + prompt, 1, 4);
 
