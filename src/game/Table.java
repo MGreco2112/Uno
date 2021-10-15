@@ -165,10 +165,8 @@ public class Table {
             case 1 -> {
                 reshuffleDeck();
                 playCard(activePlayer);
+                updatePile();
                 checkCardPowers(activePlayer);
-//                if (!Objects.equals(pile.get(pile.size() - 1).getCOLOR(), "Wild")) {
-                    updatePile();
-                    //insert ability check here
 //                }
             }
             case 2 -> addCard(activePlayer);
@@ -186,16 +184,82 @@ public class Table {
     }
 
     private void checkCardPowers(Player activePlayer) {
-        Card checkedCard = pile.get(pile.size() - 1);
-        int currentPlayer = players.indexOf(activePlayer);
 
-        if (checkedCard.getIsDraw() && !checkedCard.getIsWild()) {
-            System.out.println(players.get(currentPlayer + 1).getNAME() + " draws 2 cards!");
-            hasSkipped = true;
-            players.get(currentPlayer + 1).addCards(2, deck);
-        } else if (checkedCard.getIsSkip()) {
-            hasSkipped = true;
+        if (currentCard.getIsDraw() && currentCard.getIsWild()) {
+            drawPower(activePlayer);
+        } else if (currentCard.getIsSkip()) {
+            skipPower();
+        } else if (currentCard.getIsWild()) {
+            wildPower(activePlayer);
+        } else {
+            reversePower();
         }
+    }
+
+    private void drawPower(Player activePlayer) {
+        int drawTwo = 2;
+        int drawFour = 4;
+        int currentPlayer = players.indexOf(activePlayer);
+        StringBuilder prompt = new StringBuilder();
+        prompt.append(players.get(currentPlayer + 1).getNAME() + " draws");
+        int drawnCards;
+
+        if (currentCard.getVALUE() == Card.DRAW_VALUE) {
+            prompt.append(" 2 cards");
+            drawnCards = drawTwo;
+        } else {
+            prompt.append(" 4 cards");
+            drawnCards = drawFour;
+            wildPower(activePlayer);
+        }
+
+        skipPower();
+        System.out.println(prompt);
+        players.get(currentPlayer + 1).addCards(drawnCards, deck);
+
+
+    }
+
+    private void skipPower() {
+        hasSkipped = true;
+    }
+
+    private void wildPower(Player activePlayer) {
+        StringBuilder setColorPrompt = new StringBuilder();
+        setColorPrompt.append(activePlayer.getNAME() + " sets the color to ");
+        String colorSetter = "";
+
+        String prompt = "1) Red\n2) Blue\n)3 Yellow\n4) Green";
+
+        int colorChoice = Utilities.getInt("Choose a Color\n" + prompt, 1, 4);
+
+
+
+        switch (colorChoice) {
+            case 1 -> {
+                setColorPrompt.append("Red");
+                colorSetter = "Red";
+            }
+            case 2 -> {
+                setColorPrompt.append("Blue");
+                colorSetter = "Blue";
+            }
+            case 3 -> {
+                setColorPrompt.append("Yellow");
+                colorSetter = "Yellow";
+            }
+            case 4 -> {
+                setColorPrompt.append("Green");
+                colorSetter = "Green";
+            }
+        }
+
+        System.out.println(setColorPrompt);
+        currentColor = colorSetter;
+    }
+
+    private void reversePower() {
+        //TODO implement Reverse
     }
 
 }
