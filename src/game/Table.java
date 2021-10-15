@@ -61,7 +61,7 @@ public class Table {
     }
 
     private void turn(Player activePlayer) {
-        reshuffleDeck();
+//        reshuffleDeck();
         if (!hasSkipped) {
             playerAction(activePlayer);
         } else {
@@ -151,11 +151,9 @@ public class Table {
     }
 
     private void reshuffleDeck() {
-        int EMPTY_DECK = 0;
-        if (deck.getCardsRemaining() == EMPTY_DECK) {
-            System.out.println("Reshuffling");
-            deck.reshuffle(pile);
-        }
+        System.out.println("Reshuffling");
+        deck.reshuffle(pile);
+
     }
 
     public void playerAction(Player activePlayer) {
@@ -175,7 +173,7 @@ public class Table {
 
         switch (choice) {
             case 1 -> {
-                reshuffleDeck();
+//                reshuffleDeck();
                 playCard(activePlayer);
                 updatePile();
                 checkCardPowers(activePlayer);
