@@ -198,12 +198,16 @@ public class Table {
     private void drawPower(Player activePlayer) {
         int drawTwo = 2;
         int drawFour = 4;
+        int rotation = (isReverse ? -1 : 1);
         StringBuilder prompt = new StringBuilder();
         int nextPlayer;
-        if (players.get(players.indexOf(activePlayer) + 1) != null) {
-            nextPlayer = players.indexOf(activePlayer) + 1;
-        } else {
+
+        if (players.get(players.indexOf(activePlayer) + rotation) != null) {
+            nextPlayer = players.indexOf(activePlayer) + rotation;
+        } else  if (!isReverse){
             nextPlayer = 0;
+        } else {
+            nextPlayer = players.size() - 1;
         }
 
         prompt.append(" draws");
