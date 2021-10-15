@@ -167,7 +167,6 @@ public class Table {
                 playCard(activePlayer);
                 updatePile();
                 checkCardPowers(activePlayer);
-//                }
             }
             case 2 -> addCard(activePlayer);
         }
@@ -185,7 +184,7 @@ public class Table {
 
     private void checkCardPowers(Player activePlayer) {
 
-        if (currentCard.getIsDraw() && currentCard.getIsWild()) {
+        if (currentCard.getIsDraw() || currentCard.getIsDraw() && currentCard.getIsWild()) {
             drawPower(activePlayer);
         } else if (currentCard.getIsSkip()) {
             skipPower();
