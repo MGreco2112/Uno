@@ -51,6 +51,7 @@ public class Table {
         while (!hasWinner) {
             //TODO modify this loop to flow both ways
             for (Player player : players) {
+                System.out.println(deck.getCardsRemaining() + " cards remaining");
                 turn(player);
                 if (hasWinner) {
                     break;
