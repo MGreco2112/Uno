@@ -29,6 +29,7 @@ public class Player {
     }
 
     public Card playCard() {
+
         return HAND.cards.get(HAND.playCard());
     }
 
@@ -39,7 +40,9 @@ public class Player {
         }
 
         switch (numberOfCards) {
-            case 1 -> HAND.addCards(deck);
+            case 1 -> {
+                System.out.println(NAME + " draws a " + HAND.addCards(deck).displayCard());
+            }
             default -> HAND.addCards(numberOfCards, deck);
         }
     }

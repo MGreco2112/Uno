@@ -120,7 +120,11 @@ public class Table {
     }
 
     private void playCard(Player activePlayer) {
-        System.out.println(currentCard.displayCard());
+        if (!currentCard.getIsWild()) {
+            System.out.println(currentCard.displayCard());
+        } else {
+            System.out.println(currentColor + " Wild");
+        }
         Card card = activePlayer.playCard();
         if (Objects.equals(card.getCOLOR(), currentColor) || card.getVALUE() == currentValue || card.getVALUE() == Deck.WILD_VALUE
                 || card.getVALUE() == Deck.DRAW_WILD_VALUE) {

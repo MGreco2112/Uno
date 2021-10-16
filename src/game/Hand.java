@@ -22,8 +22,12 @@ public class Hand {
     protected List<Card> cards = new ArrayList<>();
     protected boolean calledUno = false;
 
-    public void addCards(Deck deck) {
-        cards.add(deck.draw());
+    public Card addCards(Deck deck) {
+        Card drawnCard = deck.draw();
+
+        cards.add(drawnCard);
+
+        return drawnCard;
     }
 
     public void addCards(int numberOfCards, Deck deck) {
@@ -43,7 +47,12 @@ public class Hand {
         int handPosition = STARTING_CARD;
 
         for (Card card : cards) {
-            hand.append(handPosition).append(") ").append(card.displayCard().append("\n"));
+            hand.append(handPosition).append(") ").append(card.displayCard().append(" | "));
+
+            if (handPosition % 7 == 0) {
+                hand.append("\n");
+            }
+
             handPosition++;
         }
 
