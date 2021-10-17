@@ -62,7 +62,6 @@ public class Table {
     }
 
     private void turn(Player activePlayer) {
-//        reshuffleDeck();
         if (!hasSkipped) {
             playerAction(activePlayer);
         } else {
@@ -139,11 +138,15 @@ public class Table {
 
     private void addCard(Player activePlayer) {
         if (deck.getCardsRemaining() <= 1) {
-            deck.reshuffle(pile);
+            reshuffleDeck();
         }
 
-        int SINGLE_DRAW = 1;
-        activePlayer.addCards(SINGLE_DRAW, deck);
+        if (deck.getCardsRemaining() > 0) {
+            int SINGLE_DRAW = 1;
+            activePlayer.addCards(SINGLE_DRAW, deck);
+        } else {
+            System.out.println("There are no cards in the deck to draw");
+        }
     }
 
     private void checkWinner(Player activePlayer){
@@ -178,7 +181,6 @@ public class Table {
 
         switch (choice) {
             case 1 -> {
-//                reshuffleDeck();
                 playCard(activePlayer);
                 updatePile();
                 checkCardPowers(activePlayer);
@@ -212,7 +214,7 @@ public class Table {
 
     private void drawPower(Player activePlayer) {
         if (deck.getCardsRemaining() <= 2) {
-            deck.reshuffle(pile);
+            reshuffleDeck();
         }
 
         int drawTwo = 2;
@@ -243,9 +245,14 @@ public class Table {
         }
 
         skipPower();
-        System.out.println(prompt);
-        players.get(nextPlayer).addCards(drawnCards, deck);
 
+        if (deck.getCardsRemaining() > 0) {
+            System.out.println(prompt);
+            players.get(nextPlayer).addCards(drawnCards, deck);
+        } else {
+            prompt.append("\nThere are no cards in the deck to draw");
+            System.out.println(prompt);
+        }
 
     }
 
