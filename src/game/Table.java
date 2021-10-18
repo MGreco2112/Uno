@@ -61,8 +61,12 @@ public class Table {
     private void playersTurn() {
         while (!hasWinner) {
             for (int playerIndex = 0; playerIndex < players.size();) {
+
                 System.out.println(deck.getCardsRemaining() + " cards remaining");
+                System.out.println("Index: " + playerIndex);
+
                 turn(players.get(playerIndex));
+
                 if (hasWinner) {
                     break;
                 }
@@ -141,6 +145,8 @@ public class Table {
 
 
         if (currentCard.getIsWild()) {
+            System.out.println("The top card is Wild!\n" + firstPlayer.getNAME() + ", choose a color!");
+
             wildPower(firstPlayer);
         }
     }
