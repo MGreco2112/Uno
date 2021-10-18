@@ -41,23 +41,11 @@ public class Table {
     private boolean hasSkipped = false;
     private boolean hasWinner = false;
 
-    public Table() {
-
-    }
 
     public void round() {
         setupGame();
         openingPile();
-        while (!hasWinner) {
-            //TODO modify this loop to flow both ways
-            for (Player player : players) {
-                System.out.println(deck.getCardsRemaining() + " cards remaining");
-                turn(player);
-                if (hasWinner) {
-                    break;
-                }
-            }
-        }
+        playersTurn();
         declareWinner();
     }
 
@@ -68,6 +56,34 @@ public class Table {
             resetSkip(activePlayer);
         }
         checkWinner(activePlayer);
+    }
+
+    private void playersTurn() {
+        while (!hasWinner) {
+            for (int playerIndex = 0; playerIndex < players.size();) {
+                System.out.println(deck.getCardsRemaining() + " cards remaining");
+                turn(players.get(playerIndex));
+                if (hasWinner) {
+                    break;
+                }
+
+                if (!isReverse) {
+                    playerIndex++;
+
+                    if (playerIndex > players.size() - 1) {
+                        playerIndex = 0;
+                    }
+                } else {
+                    playerIndex--;
+
+                    if (playerIndex < 0) {
+                        playerIndex = players.size() - 1;
+                    }
+                }
+
+
+            }
+        }
     }
 
 
@@ -111,12 +127,22 @@ public class Table {
     private void openingPile() {
         pile.add(deck.draw());
         updatePile();
+        firstWildCase();
     }
 
     private void updatePile() {
         currentCard = pile.get(pile.size() - 1);
         currentColor = currentCard.getCOLOR();
         currentValue = currentCard.getVALUE();
+    }
+
+    private void firstWildCase() {
+        Player firstPlayer = players.get(0);
+
+
+        if (currentCard.getIsWild()) {
+            wildPower(firstPlayer);
+        }
     }
 
     private void playCard(Player activePlayer) {
@@ -300,7 +326,14 @@ public class Table {
     }
 
     private void reversePower() {
-        //isReverse = !isReverse;
+        isReverse = !isReverse;
+
+        if (!isReverse) {
+            System.out.println("Order returns to normal!");
+        } else {
+            System.out.println("Order has been reversed!");
+        }
     }
+
 
 }
