@@ -131,7 +131,12 @@ public class Table {
     private void openingPile() {
         pile.add(deck.draw());
         updatePile();
+
         firstWildCase();
+        firstSkipCase();
+        firstReverseCase();
+        firstDrawCase();
+
     }
 
     private void updatePile() {
@@ -144,10 +149,36 @@ public class Table {
         Player firstPlayer = players.get(0);
 
 
-        if (currentCard.getIsWild()) {
+        if (currentCard.getIsWild() && !currentCard.getIsDraw()) {
             System.out.println("The top card is Wild!\n" + firstPlayer.getNAME() + ", choose a color!");
 
             wildPower(firstPlayer);
+        } else if (currentCard.getIsWild() && currentCard.getIsDraw()) {
+            pile.clear();
+            setupGame();
+        }
+    }
+
+    private void firstSkipCase() {
+        if (currentCard.getIsSkip()) {
+            System.out.println(players.get(0).getNAME() + " has been skipped!");
+            skipPower();
+        }
+    }
+
+    private void firstReverseCase() {
+        if (currentCard.getIsReverse()) {
+            reversePower();
+        }
+    }
+
+    private void firstDrawCase() {
+        if (currentCard.getIsDraw() && !currentCard.getIsWild()) {
+            Player firstPlayer = players.get(0);
+
+            System.out.println(firstPlayer.getNAME() + " draws 2 cards!");
+            firstPlayer.addCards(2, deck);
+            skipPower();
         }
     }
 
