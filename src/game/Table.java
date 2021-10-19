@@ -249,6 +249,10 @@ public class Table {
                 checkCardPowers(activePlayer);
             }
             case 2 -> addCard(activePlayer);
+            default -> {
+                System.out.println("Invalid selection");
+                playerAction(activePlayer);
+            }
         }
 
     }
@@ -356,6 +360,9 @@ public class Table {
                 setColorPrompt.append("Green");
                 colorSetter = "Green";
             }
+            default -> {
+                System.out.println("invalid option");
+                wildPower(activePlayer);}
         }
 
         System.out.println(setColorPrompt);
