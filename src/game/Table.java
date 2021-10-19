@@ -42,9 +42,12 @@ public class Table {
     private boolean hasSkipped = false;
     private boolean hasWinner = false;
 
+    public Table() {
+        setupGame();
+    }
+
 
     public void round() {
-        setupGame();
         openingPile();
         playersTurn();
         declareWinner();
@@ -401,7 +404,7 @@ public class Table {
         String choice = Utilities.getString("Do you want to play another game?\n(y)es\n(n)o", true);
 
         switch (choice.toLowerCase(Locale.ROOT)) {
-            case "y" -> round();
+            case "y" -> newGameOptions();
             case "n" -> {
                 System.out.println("Thanks for playing!");
                 System.exit(0);
@@ -411,6 +414,42 @@ public class Table {
                 newGame();
             }
         }
+    }
+
+    private void newGameOptions() {
+        System.out.println("Do you want to play again with New Players?");
+
+        int choice  = Utilities.getInt("1) New Players\n2) Same Players\n0) Cancel", 0, 2);
+
+        switch (choice) {
+            case 1 -> {
+                setupGame();
+                round();
+            }
+            case 2 -> continueWithCurrentPlayers();
+            case 0 -> newGame();
+            default -> {
+                System.out.println("Invalid selection");
+                newGameOptions();
+            }
+        }
+
+    }
+
+    private void continueWithCurrentPlayers() {
+        List<Player> newPlayers = new ArrayList<>();
+
+        for (Player player : players) {
+            newPlayers.add(new Player(player.getNAME(), new Hand()));
+        }
+
+        players.clear();
+
+        players.addAll(newPlayers);
+
+        createDeck();
+        openingDeal();
+        round();
     }
 
 }
