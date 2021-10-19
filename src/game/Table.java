@@ -281,7 +281,7 @@ public class Table {
             skipPower();
         } else if (currentCard.getIsWild()) {
             wildPower(activePlayer);
-        } else {
+        } else if (currentCard.getIsReverse()) {
             reversePower();
         }
     }
@@ -299,6 +299,10 @@ public class Table {
 
         if (players.indexOf(activePlayer) != players.size() - 1) {
             nextPlayer = players.indexOf(activePlayer) + rotation;
+        } else if(numberOfPlayers == 2 && players.indexOf(activePlayer) == 0) {
+            nextPlayer = 1;
+        } else if (numberOfPlayers == 2 && players.indexOf(activePlayer) == 1) {
+            nextPlayer = 0;
         } else if (!isReverse){
             nextPlayer = 0;
         } else {
