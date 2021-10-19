@@ -74,4 +74,14 @@ public class Player {
         return HAND.isWinner();
     }
 
+    public void calculateScore() {
+        for (Card card : HAND.cards) {
+            score += card.getVALUE();
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
+
 }

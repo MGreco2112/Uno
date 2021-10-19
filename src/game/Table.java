@@ -7,6 +7,7 @@ import utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Table {
@@ -47,6 +48,9 @@ public class Table {
         openingPile();
         playersTurn();
         declareWinner();
+        scoreHands();
+        displayScores();
+        newGame();
     }
 
     private void turn(Player activePlayer) {
@@ -379,5 +383,34 @@ public class Table {
         }
     }
 
+    private void scoreHands() {
+        for (Player player : players) {
+            player.calculateScore();
+        }
+    }
+
+    private void displayScores() {
+        System.out.println("Round Scores:\n");
+
+        for (Player player : players) {
+            System.out.println(player.getNAME() + ": " + player.getScore());
+        }
+    }
+
+    private void newGame() {
+        String choice = Utilities.getString("Do you want to play another game?\n(y)es\n(n)o", true);
+
+        switch (choice.toLowerCase(Locale.ROOT)) {
+            case "y" -> round();
+            case "n" -> {
+                System.out.println("Thanks for playing!");
+                System.exit(0);
+            }
+            default -> {
+                System.out.println("Invalid entry, try again");
+                newGame();
+            }
+        }
+    }
 
 }
