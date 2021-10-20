@@ -1,7 +1,6 @@
 package game;
 
 import card.Card;
-import game.Hand;
 import card.Deck;
 import utilities.Utilities;
 
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 public class Table {
     /*
-    Deck deck
+            Deck deck= new Deck();
 	        List<Player> players
 	        List<Card> pile
 	        boolean isReverse
@@ -31,8 +30,8 @@ public class Table {
      */
 
 
-    private List<Player> players = new ArrayList<>();
-    private List<Card> pile = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
+    private final List<Card> pile = new ArrayList<>();
     private Deck deck;
     private boolean isReverse = false;
     private int numberOfPlayers;
@@ -314,7 +313,7 @@ public class Table {
             nextPlayer = players.size() - 1;
         }
 
-        prompt.append(players.get(nextPlayer).getNAME() + " draws");
+        prompt.append(players.get(nextPlayer).getNAME()).append(" draws");
 
         int drawnCards;
 
@@ -350,7 +349,7 @@ public class Table {
 
     private void wildPower(Player activePlayer) {
         StringBuilder setColorPrompt = new StringBuilder();
-        setColorPrompt.append(activePlayer.getNAME() + " sets the color to ");
+        setColorPrompt.append(activePlayer.getNAME()).append(" sets the color to ");
         String colorSetter = "";
 
         String prompt = "1) Red\n2) Blue\n3) Yellow\n4) Green";
