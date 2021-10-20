@@ -12,7 +12,7 @@ public class Utilities {
             System.out.println(prompt);
 
             output = scanner.nextLine();
-        } while (output == "" && isRequired);
+        } while (output.equals("") && isRequired);
 
         return output;
     }

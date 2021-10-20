@@ -105,9 +105,9 @@ public class Table {
     }
 
     private void setNumberOfPlayers() {
-        int MIN_PLAYERS = 1;
-        int MAX_PLAYERS = 5;
-        numberOfPlayers = Utilities.getInt("How many Players?\nEnter a number 1 - 5", MIN_PLAYERS, MAX_PLAYERS);
+        int MIN_PLAYERS = 2;
+        int MAX_PLAYERS = 6;
+        numberOfPlayers = Utilities.getInt("How many Players?\nEnter a number 2 - 6", MIN_PLAYERS, MAX_PLAYERS);
     }
 
     private void createDeck() {
