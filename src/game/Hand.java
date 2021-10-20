@@ -69,14 +69,14 @@ public class Hand {
         return cards;
     }
 
-    public void displayHand() {
+    public String displayHand() {
         StringBuilder hand = new StringBuilder();
 
         for (Card card : cards) {
             hand.append(card.displayCard() + " | ");
         }
 
-        System.out.println(hand);
+        return hand.toString();
     }
 
     public boolean isWinner() {

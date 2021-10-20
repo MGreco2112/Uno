@@ -157,7 +157,7 @@ public class Table {
 
         if (currentCard.getIsWild() && !currentCard.getIsDraw()) {
             System.out.println("The top card is Wild!\n" + firstPlayer.getNAME() + ", choose a color!");
-            firstPlayer.displayHand();
+            System.out.println(firstPlayer.displayHand());
 
             wildPower(firstPlayer);
         } else if (currentCard.getIsWild() && currentCard.getIsDraw()) {
@@ -237,17 +237,21 @@ public class Table {
     public void playerAction(Player activePlayer) {
         int MIN_OPTION = 1;
         int MAX_OPTION = 2;
+        String prompt = "";
 
         if (!currentCard.getIsWild()) {
-            System.out.println("Current Card: " + currentCard.displayCard());
+            prompt += "Current Card: " + currentCard.displayCard();
         } else {
-            System.out.println("Current Card: " + currentColor + " Wild");
+            prompt += "Current Card: " + currentColor + " Wild";
         }
 
-        System.out.println(activePlayer.getNAME() + "'s turn");
+        prompt += "\n" + activePlayer.getNAME() + "'s turn\n";
 
-        activePlayer.displayHand();
-        int choice = Utilities.getInt(activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", MIN_OPTION, MAX_OPTION);
+        prompt += activePlayer.displayHand();
+
+        prompt += "\n";
+
+        int choice = Utilities.getInt(prompt + activePlayer.getNAME() + "\n1) Play Card\n2) Draw Card", MIN_OPTION, MAX_OPTION);
 
         switch (choice) {
             case 1 -> {
@@ -268,7 +272,6 @@ public class Table {
         for (Player player : players) {
             if (player.isWinner()) {
                 System.out.println(player.getNAME() + " is the winner!");
-                return;
             }
         }
     }
@@ -383,6 +386,8 @@ public class Table {
     }
 
     private void reversePower() {
+        int twoPlayerGame = 2;
+
         isReverse = !isReverse;
 
         if (!isReverse) {
@@ -391,7 +396,7 @@ public class Table {
             System.out.println("Order has been reversed!");
         }
 
-        if (numberOfPlayers == 2) {
+        if (numberOfPlayers == twoPlayerGame) {
             skipPower();
         }
     }
@@ -424,6 +429,7 @@ public class Table {
             case "y" -> newGameOptions();
             case "n" -> {
                 System.out.println("Thanks for playing!");
+                declareWinner();
                 System.exit(0);
             }
             default -> {

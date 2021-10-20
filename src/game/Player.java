@@ -47,8 +47,8 @@ public class Player {
         }
     }
 
-    public void displayHand() {
-        HAND.displayHand();
+    public String displayHand() {
+        return HAND.displayHand();
     }
 
     public void removeCard(Card card) {
