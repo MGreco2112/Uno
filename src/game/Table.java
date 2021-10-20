@@ -461,11 +461,7 @@ public class Table {
         int choice  = Utilities.getInt("1) New Players\n2) Same Players\n0) Cancel", 0, 2);
 
         switch (choice) {
-            case 1 -> {
-                players.clear();
-                setupGame();
-                round();
-            }
+            case 1 -> continueWithNewPlayers();
             case 2 -> continueWithCurrentPlayers();
             case 0 -> newGame();
             default -> {
@@ -474,6 +470,12 @@ public class Table {
             }
         }
 
+    }
+
+    private void continueWithNewPlayers() {
+        players.clear();
+        setupGame();
+        round();
     }
 
     private void continueWithCurrentPlayers() {
