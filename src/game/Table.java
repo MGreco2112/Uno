@@ -415,6 +415,22 @@ public class Table {
         }
     }
 
+    private void declareFinalWinner() {
+
+        Player winner = null;
+        int lowestScore = players.get(0).getScore();
+
+        for (Player player : players) {
+            if (player.getScore() <= lowestScore) {
+                winner = player;
+            }
+
+            if (winner != null) {
+                System.out.println(winner.getNAME() + " is the winner!");
+            }
+        }
+    }
+
     private void resetBooleans() {
         isReverse = false;
         hasSkipped = false;
@@ -428,8 +444,8 @@ public class Table {
         switch (choice.toLowerCase(Locale.ROOT)) {
             case "y" -> newGameOptions();
             case "n" -> {
+                declareFinalWinner();
                 System.out.println("Thanks for playing!");
-                declareWinner();
                 System.exit(0);
             }
             default -> {
