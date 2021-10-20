@@ -70,7 +70,6 @@ public class Table {
             for (int playerIndex = 0; playerIndex < players.size();) {
 
                 System.out.println(deck.getCardsRemaining() + " cards remaining");
-                System.out.println("Index: " + playerIndex);
 
                 turn(players.get(playerIndex));
 
@@ -158,11 +157,12 @@ public class Table {
 
         if (currentCard.getIsWild() && !currentCard.getIsDraw()) {
             System.out.println("The top card is Wild!\n" + firstPlayer.getNAME() + ", choose a color!");
+            firstPlayer.displayHand();
 
             wildPower(firstPlayer);
         } else if (currentCard.getIsWild() && currentCard.getIsDraw()) {
             pile.clear();
-            setupGame();
+            round();
         }
     }
 
@@ -299,13 +299,15 @@ public class Table {
 
         if (players.indexOf(activePlayer) != players.size() - 1) {
             nextPlayer = players.indexOf(activePlayer) + rotation;
-        } else if(numberOfPlayers == 2 && players.indexOf(activePlayer) == 0) {
-            nextPlayer = 1;
-        } else if (numberOfPlayers == 2 && players.indexOf(activePlayer) == 1) {
-            nextPlayer = 0;
         } else if (!isReverse){
             nextPlayer = 0;
         } else {
+            nextPlayer = players.size() - 1;
+        }
+
+        if (players.indexOf(activePlayer) == 0 && !isReverse) {
+            nextPlayer = rotation;
+        } else if (players.indexOf(activePlayer) == 0 && isReverse) {
             nextPlayer = players.size() - 1;
         }
 
@@ -388,6 +390,10 @@ public class Table {
         } else {
             System.out.println("Order has been reversed!");
         }
+
+        if (numberOfPlayers == 2) {
+            skipPower();
+        }
     }
 
     private void scoreHands() {
@@ -404,7 +410,14 @@ public class Table {
         }
     }
 
+    private void resetBooleans() {
+        isReverse = false;
+        hasSkipped = false;
+        hasWinner = false;
+    }
+
     private void newGame() {
+        resetBooleans();
         String choice = Utilities.getString("Do you want to play another game?\n(y)es\n(n)o", true);
 
         switch (choice.toLowerCase(Locale.ROOT)) {
@@ -427,6 +440,7 @@ public class Table {
 
         switch (choice) {
             case 1 -> {
+                players.clear();
                 setupGame();
                 round();
             }
@@ -441,15 +455,10 @@ public class Table {
     }
 
     private void continueWithCurrentPlayers() {
-        List<Player> newPlayers = new ArrayList<>();
 
         for (Player player : players) {
-            newPlayers.add(new Player(player.getNAME(), new Hand()));
+            player.clearHand();
         }
-
-        players.clear();
-
-        players.addAll(newPlayers);
 
         createDeck();
         openingDeal();

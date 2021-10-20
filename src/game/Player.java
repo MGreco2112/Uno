@@ -84,4 +84,8 @@ public class Player {
         return score;
     }
 
+    public void clearHand() {
+        HAND.cards.clear();
+    }
+
 }
